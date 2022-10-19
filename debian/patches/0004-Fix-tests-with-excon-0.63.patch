@@ -1,0 +1,33 @@
+From: Daniel Leidert <daniel.leidert@wgdd.de>
+Date: Mon, 30 Mar 2020 15:41:52 +0200
+Subject: Fix tests with excon >= 0.63
+
+In this version an 'Accept' header has been added in excon [1] and needs to be
+added to the default headers to merge too. This should fix #801 and with the
+version check being backwards compatible
+
+[1] https://github.com/excon/excon/blame/master/lib/excon/constants.rb#L141
+
+Co-Authored-By: Kurtis Rainbolt-Greene <kurtis@rainbolt-greene.online>
+Co-Authored-By: Antonio Terceiro <terceiro@debian.org>
+---
+ spec/support/http_library_adapters.rb | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/spec/support/http_library_adapters.rb b/spec/support/http_library_adapters.rb
+index 9914097..90d7668 100644
+--- a/spec/support/http_library_adapters.rb
++++ b/spec/support/http_library_adapters.rb
+@@ -227,7 +227,11 @@ HTTP_LIBRARY_ADAPTERS['excon'] = Module.new do
+   end
+ 
+   def normalize_request_headers(headers)
+-    headers.merge('User-Agent' => [Excon::USER_AGENT])
++    if Gem::Version.new(Excon::VERSION) < Gem::Version.new("0.63")
++      headers.merge('User-Agent' => [Excon::USER_AGENT])
++    else
++      headers.merge('User-Agent' => [Excon::USER_AGENT], 'Accept' => ['*/*'])
++    end
+   end
+ end
+ 

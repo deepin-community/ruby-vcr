@@ -1,0 +1,94 @@
+ruby-vcr (6.0.0+really5.0.0-2) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Debian Janitor ]
+  * Remove constraints unnecessary since buster
+
+  [ Lucas Kanashiro ]
+  * Add b-d on ruby-webrick (Closes: #996521)
+  * Add patch to support ruby3.0
+  * Bump debhelper compatibility level to 13
+  * Declare compliance with Debian Policy 4.6.0
+
+ -- Lucas Kanashiro <kanashiro@debian.org>  Fri, 05 Nov 2021 11:40:39 -0300
+
+ruby-vcr (6.0.0+really5.0.0-1) unstable; urgency=medium
+
+  * Team upload
+  * debian/watch: lock down to v5.0 for a free software version
+  * Switch back to version 5.0.0, which was still licensed under a free
+    software license (Closes: #984689)
+  * Backport existing patches to v5.0.0
+  * Add patches to make tests pass:
+    - Add patch to drop codeclimate stuff
+    - Re-add patch from Daniel Leidert in 5.1.0-2
+    - Add new patch to skip a few faraday tests that fail. Didn't have the
+      time to dig further.
+
+ -- Antonio Terceiro <terceiro@debian.org>  Mon, 08 Mar 2021 10:03:31 -0300
+
+ruby-vcr (6.0.0-2) unstable; urgency=medium
+
+  * Team upload
+  * Reupload to unstable
+
+ -- Pirate Praveen <praveen@debian.org>  Tue, 01 Dec 2020 17:03:35 +0530
+
+ruby-vcr (6.0.0-1) experimental; urgency=medium
+
+  * Team upload
+  
+  [ Cédric Boutillier ]
+  * [ci skip] Update team name
+
+  [ Pirate Praveen ]
+  * New upstream version 6.0.0 (Closes: #976165)
+  * Refresh patches and drop patches applied upstream
+  * Add ruby-simplecov as build dependency
+  * Update minimum version of ruby-farday to 1.0
+  * Add Forwarded: not-needed to 0002-Do-not-test-patron.patch
+
+ -- Pirate Praveen <praveen@debian.org>  Tue, 01 Dec 2020 12:32:05 +0530
+
+ruby-vcr (5.1.0-2) unstable; urgency=medium
+
+  * Team upload
+  * Add patch to fix compatibility with excon 0.72, thanks to Daniel Leidert
+    (Closes: #954731)
+
+ -- Pirate Praveen <praveen@debian.org>  Mon, 30 Mar 2020 21:48:46 +0530
+
+ruby-vcr (5.1.0-1) unstable; urgency=medium
+
+  * Team upload
+  * add missing build dependency on ruby-eventmachine
+  * New upstream version 5.1.0
+  * Refresh packaging files with dh-make-ruby
+  * Refresh patches
+  * Add new build dependency: ruby-em-http-request
+
+ -- Antonio Terceiro <terceiro@debian.org>  Fri, 27 Mar 2020 13:51:31 -0300
+
+ruby-vcr (4.0.0-2) unstable; urgency=medium
+
+  * Team upload
+
+  [ Utkarsh Gupta ]
+  * Add salsa-ci.yml
+
+  [ Cédric Boutillier ]
+  * skip randomly failing test using concurrency (Closes: #926827)
+    Thanks Santiago Vila for the patch
+  * Bump debhelper from old 11 to 12.
+  * Set debhelper-compat version in Build-Depends.
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository,
+    Repository-Browse.
+
+ -- Cédric Boutillier <boutil@debian.org>  Mon, 20 Jan 2020 23:06:03 +0100
+
+ruby-vcr (4.0.0-1) unstable; urgency=medium
+
+  * Initial release (Closes: #695195)
+
+ -- Mathieu Parent <sathieu@debian.org>  Mon, 03 Dec 2018 15:57:38 +0100

@@ -1,0 +1,4 @@
+# vcr 5.1+ has a non-free license: lock down to 5.0
+version=4
+opts=filenamemangle=s/.+\/v?(\d\S+)\.tar\.gz/vcr-$1\.tar\.gz/ \
+  https://github.com/vcr/vcr/tags .*/v?(5\.0\.\S+)\.tar\.gz

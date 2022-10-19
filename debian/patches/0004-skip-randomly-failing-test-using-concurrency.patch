@@ -1,0 +1,24 @@
+From: =?utf-8?q?C=C3=A9dric_Boutillier?= <boutil@debian.org>
+Date: Mon, 20 Jan 2020 22:58:19 +0100
+Subject: skip randomly failing test using concurrency
+
+Bug: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=926827
+Author: Santiago Vila <sanvila@debian.org>
+Last-Update: 2019-04-18
+---
+ spec/acceptance/concurrency_spec.rb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/spec/acceptance/concurrency_spec.rb b/spec/acceptance/concurrency_spec.rb
+index 15eb643..6693441 100644
+--- a/spec/acceptance/concurrency_spec.rb
++++ b/spec/acceptance/concurrency_spec.rb
+@@ -12,7 +12,7 @@ describe VCR do
+ 
+     before { preload_yaml_serializer_to_avoid_circular_require_warning_race_condition }
+ 
+-    it 'can use a cassette in an #around_http_request hook' do
++    xit 'can use a cassette in an #around_http_request hook' do
+       VCR.configure do |vcr|
+         vcr.around_http_request do |req|
+           VCR.use_cassette(req.parsed_uri.path, &req)

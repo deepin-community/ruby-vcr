@@ -1,0 +1,6 @@
+0002-Do-not-test-patron.patch
+0004-skip-randomly-failing-test-using-concurrency.patch
+0003-spec_helper-drop-codeclimate-stuff.patch
+0004-Fix-tests-with-excon-0.63.patch
+0005-Skip-failing-faraday-tests.patch
+0006-Add-ruby3.0-support.patch
