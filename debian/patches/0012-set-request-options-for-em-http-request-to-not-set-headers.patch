@@ -1,0 +1,27 @@
+Author: Jimmy Bradshaw <james.g.bradshaw@gmail.com>
+Description:  Set request options for em-http-request to not set headers
+Origin: upstream, https://github.com/vcr/vcr/pull/883/commits/f9b9557004a6865b469a8f44d9c5655ba4a492a3
+Last-Update: 2023-01-04
+
+* Needed because was match very explicitly on headers
+
+Index: ruby-vcr/spec/support/http_library_adapters.rb
+===================================================================
+--- ruby-vcr.orig/spec/support/http_library_adapters.rb
++++ ruby-vcr/spec/support/http_library_adapters.rb
+@@ -109,7 +109,14 @@ HTTP_LIBRARY_ADAPTERS['em-http-request']
+   def make_http_request(method, url, body = nil, headers = {})
+     http = nil
+     EventMachine.run do
+-      http = EventMachine::HttpRequest.new(url).send(method, :body => body, :head => headers)
++      # Several request options are required to prevent em-http-request from inserting headers
++      request_options = {
++        body: body,
++        head: headers.merge({"user-agent" => nil}),
++        compressed: false,
++        keepalive: true
++      }
++      http = EventMachine::HttpRequest.new(url).send(method, **request_options)
+       http.callback { EventMachine.stop }
+     end
+     http

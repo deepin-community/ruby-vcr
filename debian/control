@@ -23,17 +23,15 @@ Build-Depends: debhelper-compat (= 13),
                ruby-webrick (>= 1.7.0),
                ruby-yajl,
                pry
-Standards-Version: 4.6.0
+Standards-Version: 4.6.1
 Vcs-Git: https://salsa.debian.org/ruby-team/ruby-vcr.git
 Vcs-Browser: https://salsa.debian.org/ruby-team/ruby-vcr
 Homepage: https://relishapp.com/vcr/vcr/docs
 Testsuite: autopkgtest-pkg-ruby
-XS-Ruby-Versions: all
 Rules-Requires-Root: no
 
 Package: ruby-vcr
 Architecture: all
-XB-Ruby-Versions: ${ruby:Versions}
 Depends: ${misc:Depends},
          ${ruby:Depends},
          ${shlibs:Depends}

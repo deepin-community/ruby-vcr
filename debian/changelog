@@ -1,3 +1,40 @@
+ruby-vcr (6.0.0+really5.0.0-5) unstable; urgency=medium
+
+  * Team upload.
+
+  [ HIGUCHI Daisuke (VDR dai) ]
+  * fix FTBFS with ruby-rspec-3.12, ruby-3.1 and em-http-request
+   (Closes: #1027095)
+  * clean test files.
+  * eliminate lintian warning: trailing-whitespace
+  * eliminate lintian warning: patch-not-forwarded-upstream
+  * Drop XS-Ruby-Version and XB-Ruby-Version.
+
+ -- HIGUCHI Daisuke (VDR dai) <dai@debian.org>  Wed, 04 Jan 2023 15:48:10 +0900
+
+ruby-vcr (6.0.0+really5.0.0-4) unstable; urgency=medium
+
+  * Team upload
+  * Import upstream commits to make VCR::Cassette::Migrator compatible with
+    newer psych (Closes: #1019674)
+  * Disable shared example for tests failing on ipv6-only machines (Closes:
+    #1018882)
+
+ -- Cédric Boutillier <boutil@debian.org>  Sun, 13 Nov 2022 23:31:11 +0100
+
+ruby-vcr (6.0.0+really5.0.0-3) unstable; urgency=medium
+
+  * Team upload
+
+  [ Daniel Leidert ]
+  * Fix watch file
+
+  [ Antonio Terceiro ]
+  * spec: fix passing options under ruby3.0 (Closes: #1005429)
+  * Bump Standards-Version to 4.6.1; no changes needed
+
+ -- Antonio Terceiro <terceiro@debian.org>  Sun, 28 Aug 2022 15:05:45 -0300
+
 ruby-vcr (6.0.0+really5.0.0-2) unstable; urgency=medium
 
   * Team upload.
@@ -38,7 +75,7 @@ ruby-vcr (6.0.0-2) unstable; urgency=medium
 ruby-vcr (6.0.0-1) experimental; urgency=medium
 
   * Team upload
-  
+
   [ Cédric Boutillier ]
   * [ci skip] Update team name
 

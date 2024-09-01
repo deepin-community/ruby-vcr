@@ -1,0 +1,24 @@
+From: =?utf-8?q?C=C3=A9dric_Boutillier?= <boutil@debian.org>
+Date: Sun, 13 Nov 2022 23:43:38 +0100
+Subject: disable shared example for tests failing on ipv6-only machines
+Forwarded: not-needed
+
+---
+ spec/support/shared_example_groups/hook_into_http_library.rb | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/spec/support/shared_example_groups/hook_into_http_library.rb b/spec/support/shared_example_groups/hook_into_http_library.rb
+index 3171073..e6fcd13 100644
+--- a/spec/support/shared_example_groups/hook_into_http_library.rb
++++ b/spec/support/shared_example_groups/hook_into_http_library.rb
+@@ -545,7 +545,9 @@ shared_examples_for "a hook into an HTTP library" do |library_hook_name, library
+ 
+         test_real_http_request(http_allowed, *other)
+ 
+-        unless http_allowed
++        # unless http_allowed
++        # Debian: disable this example, failing with WebMock on ipv6-only machines
++        unless true
+           localhost_response = "Localhost response"
+ 
+           context 'when ignore_hosts is configured to "127.0.0.1", "localhost"' do

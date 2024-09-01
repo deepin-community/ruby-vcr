@@ -1,0 +1,80 @@
+From: =?utf-8?q?C=C3=A9dric_Boutillier?= <boutil@debian.org>
+Date: Sun, 13 Nov 2022 23:23:13 +0100
+Subject: Make VCR::Cassette::Migrator compatible with newer psych
+
+Origin: https://github.com/vcr/vcr/commit/717747a7c172319a062231eacaea2114873a4ca0
+Origin: https://github.com/vcr/vcr/commit/6a90f8a1909cccc03c7c74e04a7f14ba92c88e0b
+Bug-Debian: https://bugs.debian.org/1019674
+---
+ lib/vcr/cassette/migrator.rb           |  6 +++++-
+ lib/vcr/cassette/serializers/yaml.rb   |  6 +++++-
+ spec/lib/vcr/cassette/migrator_spec.rb | 12 ++++++++++--
+ 3 files changed, 20 insertions(+), 4 deletions(-)
+
+diff --git a/lib/vcr/cassette/migrator.rb b/lib/vcr/cassette/migrator.rb
+index b7c7d3c..a52e2ea 100644
+--- a/lib/vcr/cassette/migrator.rb
++++ b/lib/vcr/cassette/migrator.rb
+@@ -50,7 +50,11 @@ module VCR
+       end
+ 
+       def load_yaml(cassette)
+-        ::YAML.load_file(cassette)
++        if ::YAML.respond_to?(:unsafe_load_file)
++          ::YAML.unsafe_load_file(cassette)
++        else
++          ::YAML.load_file(cassette)
++        end
+       rescue *@yaml_load_errors
+         return nil
+       end
+diff --git a/lib/vcr/cassette/serializers/yaml.rb b/lib/vcr/cassette/serializers/yaml.rb
+index 1e71d9b..8f09d82 100644
+--- a/lib/vcr/cassette/serializers/yaml.rb
++++ b/lib/vcr/cassette/serializers/yaml.rb
+@@ -40,7 +40,11 @@ module VCR
+         # @return [Hash] the deserialized object
+         def deserialize(string)
+           handle_encoding_errors do
+-            ::YAML.load(string)
++            if ::YAML.respond_to?(:unsafe_load)
++              ::YAML.unsafe_load(string)
++            else
++              ::YAML.load(string)
++            end
+           end
+         end
+       end
+diff --git a/spec/lib/vcr/cassette/migrator_spec.rb b/spec/lib/vcr/cassette/migrator_spec.rb
+index 633ab6a..d8a7567 100644
+--- a/spec/lib/vcr/cassette/migrator_spec.rb
++++ b/spec/lib/vcr/cassette/migrator_spec.rb
+@@ -135,10 +135,18 @@ EOF
+     allow(File).to receive(:mtime).with(file_name).and_return(filemtime)
+   end
+ 
++  def load_file(file_name)
++    if ::YAML.respond_to?(:unsafe_load_file)
++      ::YAML.unsafe_load_file(file_name)
++    else
++      ::YAML.load_file(file_name)
++    end
++  end
++
+   it 'migrates a cassette from the 1.x to 2.x format' do
+     File.open(file_name, 'w') { |f| f.write(original_contents) }
+     subject.migrate!
+-    expect(YAML.load_file(file_name)).to eq(YAML.load(updated_contents))
++    expect(load_file(file_name)).to eq(YAML.load(updated_contents))
+     expect(output).to match(/Migrated example.yml/)
+   end
+ 
+@@ -160,7 +168,7 @@ EOF
+     modified_contents = original_contents.gsub('example.com', '<HOST>')
+     File.open(file_name, 'w') { |f| f.write(modified_contents) }
+     subject.migrate!
+-    expect(YAML.load_file(file_name)).to eq(YAML.load(updated_contents.gsub('example.com', '<HOST>:80')))
++    expect(load_file(file_name)).to eq(YAML.load(updated_contents.gsub('example.com', '<HOST>:80')))
+   end
+ 
+   it 'ignores files that are empty' do
