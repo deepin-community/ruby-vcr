@@ -5,3 +5,7 @@ export DH_RUBY = --gem-install
 
 %:
 	dh $@ --buildsystem=ruby --with ruby
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -rf $(CURDIR)/tmp

@@ -1,0 +1,22 @@
+From: Antonio Terceiro <terceiro@debian.org>
+Date: Sun, 28 Aug 2022 09:11:08 -0300
+Subject: spec: fix passing options under ruby3.0
+Applied-Upstream: https://github.com/vcr/vcr/pull/816/commits/2e67ef1a9e107dc4e975d90cbd14c7fe750f9842
+
+---
+ spec/support/vcr_localhost_server.rb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/spec/support/vcr_localhost_server.rb b/spec/support/vcr_localhost_server.rb
+index 9be7822..9830643 100644
+--- a/spec/support/vcr_localhost_server.rb
++++ b/spec/support/vcr_localhost_server.rb
+@@ -44,7 +44,7 @@ module VCR
+       # Use WEBrick since it's part of the ruby standard library and is available on all ruby interpreters.
+       options = { :Port => port, :ShutdownSocketWithoutClose => true }
+       options.merge!(:AccessLog => [], :Logger => WEBrick::BasicLog.new(StringIO.new)) unless ENV['VERBOSE_SERVER']
+-      Rack::Handler::WEBrick.run(Identify.new(@rack_app), options)
++      Rack::Handler::WEBrick.run(Identify.new(@rack_app), **options)
+     end
+ 
+     def booted?

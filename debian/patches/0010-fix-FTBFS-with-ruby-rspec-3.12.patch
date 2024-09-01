@@ -1,0 +1,27 @@
+Author: Jean byroot Boussier <jean.boussier+github@shopify.com>
+Description: Fix keyword argument expectation failures on Ruby 3.0+
+Origin: upstream, https://github.com/vcr/vcr/pull/925
+Last-Update: 2023-01-03
+
+Index: ruby-vcr/spec/lib/vcr_spec.rb
+===================================================================
+--- ruby-vcr.orig/spec/lib/vcr_spec.rb
++++ ruby-vcr/spec/lib/vcr_spec.rb
+@@ -34,7 +34,7 @@ describe VCR do
+ 
+     it 'forwards the given options to `Cassette#eject`' do
+       cassette = insert_cassette
+-      expect(cassette).to receive(:eject).with(:some => :options)
++      expect(cassette).to receive(:eject).with({ :some => :options })
+       VCR.eject_cassette(:some => :options)
+     end
+ 
+@@ -341,7 +341,7 @@ describe VCR do
+     end
+ 
+     it 'passes options through to .turn_off!' do
+-      expect(VCR).to receive(:turn_off!).with(:ignore_cassettes => true)
++      expect(VCR).to receive(:turn_off!).with({ :ignore_cassettes => true })
+       VCR.turned_off(:ignore_cassettes => true) { }
+     end
+   end

@@ -4,3 +4,9 @@
 0004-Fix-tests-with-excon-0.63.patch
 0005-Skip-failing-faraday-tests.patch
 0006-Add-ruby3.0-support.patch
+0007-spec-fix-passing-options-under-ruby3.0.patch
+0008-Make-VCR-Cassette-Migrator-compatible-with-newer-psy.patch
+0009-disable-shared-example-for-tests-failing-on-ipv6-onl.patch
+0010-fix-FTBFS-with-ruby-rspec-3.12.patch
+0011-use-fiber-local-for-global_hook_disabled_requests.patch
+0012-set-request-options-for-em-http-request-to-not-set-headers.patch
